@@ -4,18 +4,18 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>{{ $title }}</h3>
+                    {{-- <h3>{{ $title }}</h3> --}}
                     <p class="text-subtitle text-muted">
-                        {{ $subtitle }}
+                        {{-- {{ $subtitle }} --}}
                     </p>
                 </div>
-                @php
+                {{-- @php
                     $breadcrumbs = $breadcrumbs ?? [];
-                @endphp
+                @endphp --}}
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
-                            @foreach ($breadcrumbs as $i => $bc)
+                            {{-- @foreach ($breadcrumbs as $i => $bc)
                                 @php $isLast = $i === count($breadcrumbs) - 1; @endphp
 
                                 @if ($isLast)
@@ -27,7 +27,7 @@
                                         <a href="{{ $bc['url'] ?? '#' }}">{{ $bc['label'] }}</a>
                                     </li>
                                 @endif
-                            @endforeach
+                            @endforeach --}}
                         </ol>
                     </nav>
                 </div>
@@ -58,10 +58,8 @@
                             <tr>
                                 <th><input type="checkbox" id="select-all"></th>
                                 <th>No</th>
-                                <th>SKU</th>
-                                <th>Name</th>
-                                <th>Stock</th>
-                                <th>Unit Code</th>
+                                <th>Product Name</th>
+                                <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -72,10 +70,8 @@
                                         <input type="checkbox" class="row-check" value="{{ $product->id }}">
                                     </td>
                                     <td>{{ $index + 1 }}</td>
-                                    <td>{{ $product->sku }}</td>
-                                    <td>{{ $product->name }}</td>
-                                    <td>{{ $product->stock_qty }}</td>
-                                    <td>{{ $product->unit_name }}</td>
+                                    <td>{{ $product->product_name }}</td>
+                                    <td>{{ $product->status }}</td>
                                     <td>
                                         <a href="{{ route('product.edit', $product->id) }}" class="btn btn-sm btn-primary">
                                             <i class="bi bi-pencil"></i>
@@ -91,7 +87,7 @@
     </div>
 @endsection
 
-@push('scripts')
+{{-- @   push('scripts') --}}
     <script>
         $(function() {
             const selectAll = $('#select-all');
@@ -166,4 +162,4 @@
                 .removeClass('dataTable-sorter');
         });
     </script>
-@endpush
+{{-- @endpush --}}

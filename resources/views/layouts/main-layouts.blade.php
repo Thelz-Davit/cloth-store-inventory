@@ -163,7 +163,7 @@
                     </div>
                 </div>
                 <div class="sidebar-menu">
-                    @php
+                    {{-- @php
                         $role = \Illuminate\Support\Facades\DB::table('roles')
                             ->where('role_id', auth()->user()->role_id)
                             ->value('role_name');
@@ -173,7 +173,7 @@
                         $canOrders = in_array($role, ['Superadmin', 'Tim Penjualan']);
                         $canRfid = in_array($role, ['Superadmin', 'Tim Produksi']);
                         $canMaster = $role === 'Superadmin';
-                    @endphp
+                    @endphp --}}
 
                     <ul class="menu" style="margin-top:0px !important;">
 
@@ -186,32 +186,41 @@
                             </a>
                         </li>
 
-                        @if ($canInbound)
+                        {{-- @if ($canInbound) --}}
                             <li class="sidebar-item">
-                                <a href="{{ route('inbound.index') }}" class='sidebar-link'>
+                                <a href="" class='sidebar-link'>
                                     <i class="fa-solid fa-arrows-down-to-line"></i>
                                     <span>Inbound</span>
                                 </a>
                             </li>
-                        @endif
+                        {{-- @endif --}}
 
-                        @if ($canOutbound)
+                        {{-- @if ($canOutbound) --}}
                             <li class="sidebar-item">
-                                <a href="{{ route('outbound.index') }}" class='sidebar-link'>
+                                <a href="" class='sidebar-link'>
                                     <i class="fa-solid fa-arrows-up-to-line"></i>
                                     <span>Outbound</span>
                                 </a>
                             </li>
-                        @endif
+                        {{-- @endif --}}
 
-                        @if ($canOrders)
+                        {{-- @if ($canOrders) --}}
                             <li class="sidebar-item">
-                                <a href="{{ route('sales-orders.index') }}" class='sidebar-link'>
+                                <a href="{{ route('material.index') }}" class='sidebar-link'>
                                     <i class="fa-solid fa-coins"></i>
-                                    <span>Orders</span>
+                                    <span>Material Master</span>
                                 </a>
                             </li>
-                        @endif
+                        {{-- @endif --}}
+
+                        {{-- @if ($canOrders) --}}
+                            <li class="sidebar-item">
+                                <a href="{{ route('product.index') }}" class='sidebar-link'>
+                                    <i class="fa-solid fa-coins"></i>
+                                    <span>Products & Composition</span>
+                                </a>
+                            </li>
+                        {{-- @endif --}}
 
                         {{-- Inventory: semua role boleh lihat --}}
                         <li class="sidebar-item has-sub">
@@ -221,62 +230,16 @@
                             </a>
                             <ul class="submenu">
                                 <li class="submenu-item">
-                                    <a href="{{ route('product.index') }}" class="submenu-link">View Inventory</a>
+                                    <a href="" class="submenu-link">View Inventory</a>
                                 </li>
                                 <li class="submenu-item">
-                                    <a href="{{ route('product.history') }}" class="submenu-link">History
+                                    <a href="" class="submenu-link">History
                                         Inventory</a>
                                 </li>
                             </ul>
                         </li>
 
-                        @if ($canRfid)
-                            <li class="sidebar-item">
-                                <a href="{{ route('rfid-tags.index') }}" class='sidebar-link'>
-                                    <i class="fa-solid fa-tags"></i>
-                                    <span>RFID</span>
-                                </a>
-                            </li>
-                        @endif
-
-                        @if ($canMaster)
-                            <li class="sidebar-item">
-                                <a href="{{ route('unit.index') }}" class='sidebar-link'>
-                                    <i class="fa-solid fa-boxes-stacked"></i>
-                                    <span>Unit</span>
-                                </a>
-                            </li>
-
-                            <li class="sidebar-item has-sub">
-                                <a href="#" class="sidebar-link">
-                                    <i class="bi bi-person-badge"></i>
-                                    <span>Role</span>
-                                </a>
-                                <ul class="submenu">
-                                    <li class="submenu-item">
-                                        <a href="{{ route('role.create') }}" class="submenu-link">Add Role</a>
-                                    </li>
-                                    <li class="submenu-item">
-                                        <a href="{{ route('role.index') }}" class="submenu-link">View Role</a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li class="sidebar-item has-sub">
-                                <a href="#" class="sidebar-link">
-                                    <i class="bi bi-person-circle"></i>
-                                    <span>Account</span>
-                                </a>
-                                <ul class="submenu">
-                                    <li class="submenu-item">
-                                        <a href="{{ route('account.create') }}" class="submenu-link">Add Account</a>
-                                    </li>
-                                    <li class="submenu-item">
-                                        <a href="{{ route('account.index') }}" class="submenu-link">View Account</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endif
+                        
 
                     </ul>
                 </div>
@@ -354,11 +317,11 @@
                                     <div class="user-menu d-flex">
                                         <div class="user-name text-end me-3">
                                             <h6 class="mb-0 text-gray-600">
-                                                {{ Auth::user()->name }}
+                                                {{ Auth::user()->username }}
                                             </h6>
-                                            <p class="mb-0 text-sm text-gray-600">
+                                            {{-- <p class="mb-0 text-sm text-gray-600">
                                                 {{ session('role_name') }}
-                                            </p>
+                                            </p> --}}
                                         </div>
                                         <div class="user-img d-flex align-items-center">
                                             <div class="avatar avatar-md">
@@ -372,7 +335,7 @@
                                     aria-labelledby="dropdownMenuButton" style="min-width: 11rem">
                                     <li>
                                         <h6 class="dropdown-header">
-                                            Hello, {{ Auth::user()->name }}
+                                            Hello, {{ Auth::user()->username }}
                                         </h6>
                                     </li>
                                     {{-- <li>

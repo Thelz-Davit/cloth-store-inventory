@@ -22,13 +22,9 @@ class User extends Authenticatable
     protected $table = 'users';
 
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
-        'role_id',
-        'is_active',
-        'phone',
-        'address'
     ];
 
     /**
@@ -52,17 +48,5 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-
-    public static function getAccount()
-    {
-        $rows = DB::select('SELECT u.* FROM users u where u.is_active = 1 order by u.id desc');
-        return $rows;
-    }
-
-    public static function getRole()
-    {
-        $rows = DB::select('SELECT r.* FROM roles r');
-        return $rows;
     }
 }

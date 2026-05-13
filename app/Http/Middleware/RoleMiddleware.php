@@ -21,26 +21,26 @@ class RoleMiddleware
             abort(403, 'Silakan login');
         }
 
-        $roleId = Auth::user()->role_id;
+        // $roleId = Auth::user()->role_id;
 
-        $roleName = DB::table('roles')
-            ->where('role_id', $roleId)
-            ->value('role_name');
+        // $roleName = DB::table('roles')
+        //     ->where('role_id', $roleId)
+        //     ->value('role_name');
 
-        if (!$roleName) {
-            abort(403, 'Role tidak ditemukan');
-        }
+        // if (!$roleName) {
+        //     abort(403, 'Role tidak ditemukan');
+        // }
 
-        if (strtolower($roleName) === 'superadmin') {
-            return $next($request);
-        }
+        // if (strtolower($roleName) === 'superadmin') {
+        //     return $next($request);
+        // }
 
-        $roleNameLower = strtolower(trim($roleName));
-        $allowed = array_map(fn($r) => strtolower(trim($r)), $allowedRoleNames);
+        // $roleNameLower = strtolower(trim($roleName));
+        // $allowed = array_map(fn($r) => strtolower(trim($r)), $allowedRoleNames);
 
-        if (!in_array($roleNameLower, $allowed)) {
-            abort(403, 'Tidak punya akses');
-        }
+        // if (!in_array($roleNameLower, $allowed)) {
+        //     abort(403, 'Tidak punya akses');
+        // }
 
         return $next($request);
     }

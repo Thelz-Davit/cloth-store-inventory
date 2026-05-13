@@ -4,8 +4,8 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>{{ $title }}</h3>
-                    <p class="text-subtitle text-muted">{{ $subtitle }}</p>
+                    {{-- <h3>{{ $title }}</h3> --}}
+                    {{-- <p class="text-subtitle text-muted">{{ $subtitle }}</p> --}}
                 </div>
             </div>
         </div>
@@ -18,7 +18,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <div class="text-muted">Total Products</div>
-                            <div class="h4 mb-0">{{ number_format($totalProducts) }}</div>
+                            {{-- <div class="h4 mb-0">{{ number_format($totalProducts) }}</div> --}}
                         </div>
                         <i class="bi bi-box-seam fs-3"></i>
                     </div>
@@ -32,7 +32,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <div class="text-muted">Total Stock</div>
-                            <div class="h4 mb-0">{{ number_format($totalStock) }}</div>
+                            {{-- <div class="h4 mb-0">{{ number_format($totalStock) }}</div> --}}
                         </div>
                         <i class="bi bi-archive fs-3"></i>
                     </div>
@@ -46,7 +46,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <div class="text-muted">Open Orders</div>
-                            <div class="h4 mb-0">{{ number_format($openOrders) }}</div>
+                            {{-- <div class="h4 mb-0">{{ number_format($openOrders) }}</div> --}}
                         </div>
                         <i class="bi bi-receipt fs-3"></i>
                     </div>
@@ -60,7 +60,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <div class="text-muted">RFID In Stock</div>
-                            <div class="h4 mb-0">{{ number_format($tagsInStock) }}</div>
+                            {{-- <div class="h4 mb-0">{{ number_format($tagsInStock) }}</div> --}}
                         </div>
                         <i class="bi bi-qr-code-scan fs-3"></i>
                     </div>
@@ -109,7 +109,7 @@
 
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
+    {{-- <script>
         (function() {
             const mvLabels = @json($mvLabels);
             const mvIn = @json($mvInbound);
@@ -194,5 +194,5 @@
                 }
             });
         })();
-    </script>
+    </script> --}}
 @endpush

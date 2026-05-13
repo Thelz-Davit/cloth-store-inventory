@@ -23,30 +23,17 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         $credentials = [
-            'email' => $request->username,
+            'username' => $request->username,
             'password' => $request->password,
-            'is_active' => 1,
         ];
 
-        if (! Auth::attempt($credentials, $request->boolean('remember'))) {
+        if (!Auth::attempt($credentials, $request->boolean('remember'))) {
             throw ValidationException::withMessages([
                 'username' => 'Username atau password salah.',
             ]);
         }
 
         $request->session()->regenerate();
-
-        $user = DB::selectOne("
-            SELECT u.id, u.name, u.email, u.role_id, r.role_name
-            FROM users u
-            JOIN roles r ON r.role_id = u.role_id
-            WHERE u.id = ?
-        ", [Auth::id()]);
-
-        session([
-            'role_id'   => $user->role_id,
-            'role_name' => $user->role_name,
-        ]);
 
         return redirect()->intended('/')
             ->with('toast_success', 'Login berhasil');
