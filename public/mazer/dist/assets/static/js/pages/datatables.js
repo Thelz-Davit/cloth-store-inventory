@@ -23,3 +23,7 @@ const setTableColor = () => {
 }
 setTableColor()
 jquery_datatable.on('draw', setTableColor)
+
+let jquery_datatable2 = $("#table3").DataTable({
+    responsive: true
+})

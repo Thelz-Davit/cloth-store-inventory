@@ -1,96 +1,96 @@
 @extends('layouts.main-layouts')
 @section('content')
-    <div class="page-heading">
-        <div class="page-title">
-            <div class="row">
-                <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>{{ $title }}</h3>
-                    <p class="text-subtitle text-muted">
-                        {{ $subtitle }}
-                    </p>
-                </div>
-                @php
-                    $breadcrumbs = $breadcrumbs ?? [];
-                @endphp
-                <div class="col-12 col-md-6 order-md-2 order-first">
-                    <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                        <ol class="breadcrumb">
-                            @foreach ($breadcrumbs as $i => $bc)
-                                @php $isLast = $i === count($breadcrumbs) - 1; @endphp
+        <div class="page-heading">
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-12 col-md-6 order-md-1 order-last">
+                        <h3>{{ $title }}</h3>
+                        <p class="text-subtitle text-muted">
+                            {{ $subtitle }}
+                        </p>
+                    </div>
+                    @php
+    $breadcrumbs = $breadcrumbs ?? [];
+                    @endphp
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            <ol class="breadcrumb">
+                                @foreach ($breadcrumbs as $i => $bc)
+                                    @php $isLast = $i === count($breadcrumbs) - 1; @endphp
 
-                                @if ($isLast)
-                                    <li class="breadcrumb-item active" aria-current="page">
-                                        {{ $bc['label'] }}
-                                    </li>
-                                @else
-                                    <li class="breadcrumb-item">
-                                        <a href="{{ $bc['url'] ?? '#' }}">{{ $bc['label'] }}</a>
-                                    </li>
-                                @endif
-                            @endforeach
-                        </ol>
-                    </nav>
+                                    @if ($isLast)
+                                        <li class="breadcrumb-item active" aria-current="page">
+                                            {{ $bc['label'] }}
+                                        </li>
+                                    @else
+                                        <li class="breadcrumb-item">
+                                            <a href="{{ $bc['url'] ?? '#' }}">{{ $bc['label'] }}</a>
+                                        </li>
+                                    @endif
+                                @endforeach
+                            </ol>
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="card">
-        {{-- <div class="card-header">
-            <h4 class="card-title">#</h4>
-        </div> --}}
-        <div class="card-body">
-            <form action="{{ route('account.delete') }}" method="POST" id="form-delete-selected">
-                @csrf
+        <div class="card">
+            {{-- <div class="card-header">
+                <h4 class="card-title">#</h4>
+            </div> --}}
+            <div class="card-body">
+                <form action="{{ route('account.delete') }}" method="POST" id="form-delete-selected">
+                    @csrf
 
-                <div class="d-flex mb-3">
-                    <a href="{{ route('account.create') }}" class="btn round btn-primary">
-                        <i class="bi bi-plus-lg"></i> Add New Account
-                    </a>
+                    <div class="d-flex mb-3">
+                        <a href="{{ route('account.create') }}" class="btn round btn-primary">
+                            <i class="bi bi-plus-lg"></i> Add New Account
+                        </a>
 
-                    <button type="submit" id="btn-delete-selected" class="btn btn-danger round ms-1" disabled>
-                        <i class="bi bi-trash"></i> Delete Selected
-                    </button>
-                </div>
+                        <button type="submit" id="btn-delete-selected" class="btn btn-danger round ms-1" disabled>
+                            <i class="bi bi-trash"></i> Delete Selected
+                        </button>
+                    </div>
 
-                <div class="table-responsive">
-                    <table class="table" id="table1">
-                        <thead>
-                            <tr>
-                                <th><input type="checkbox" id="select-all"></th>
-                                <th>No</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Address</th>
-                                <th>Phone</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($users as $user)
+                    <div class="table-responsive">
+                        <table class="table datatable" id="table1">
+                            <thead>
                                 <tr>
-                                    <td>
-                                        <input type="checkbox" class="row-check" value="{{ $user->id }}">
-                                    </td>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>{{ $user->address }}</td>
-                                    <td>{{ $user->phone }}</td>
-                                    <td>
-                                        <a href="{{ route('account.edit', $user->id) }}" class="btn btn-sm btn-primary">
-                                            <i class="bi bi-pencil"></i>
-                                        </a>
-                                    </td>
+                                    <th><input type="checkbox" id="select-all"></th>
+                                    <th>No</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Address</th>
+                                    <th>Phone</th>
+                                    <th>Action</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </form>
-        </div>
+                            </thead>
+                            <tbody>
+                                @foreach ($users as $user)
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" class="row-check" value="{{ $user->id }}">
+                                        </td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->email }}</td>
+                                        <td>{{ $user->address }}</td>
+                                        <td>{{ $user->phone }}</td>
+                                        <td>
+                                            <a href="{{ route('account.edit', $user->id) }}" class="btn btn-sm btn-primary">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
 
-    </div>
+        </div>
 @endsection
 
 @push('scripts')

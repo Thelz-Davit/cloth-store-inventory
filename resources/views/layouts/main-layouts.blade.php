@@ -5,11 +5,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Belva') }}</title>
+    <title>{{ config('app.name', '30SClothing') }}</title>
 
-    <link rel="shortcut icon" href="{{ asset('mazer/assets/compiled/svg/favicon.svg') }}" type="image/x-icon" />
-    <link rel="icon" type="image/x-icon" sizes="16x16"
-        href="https://d2kchovjbwl1tk.cloudfront.net/favicon/favicon_web_1632967746769_resized16-jpg.webp">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('mazer/dist/assets/static/images/favicon.png') }}">
+    
+    <link rel="shortcut icon" href="{{ asset('mazer/dist/assets/static/images/favicon.ico') }}">
 
     <link rel="stylesheet" href="{{ asset('mazer/dist/assets/compiled/css/app.css') }}" />
     <link rel="stylesheet" href="{{ asset('mazer/dist/assets/compiled/css/app-dark.css') }}" />
@@ -39,6 +39,7 @@
     <!-- Toastify -->
     <script src="{{ asset('mazer/dist/assets/extensions/toastify-js/src/toastify.js') }}"></script>
     <script src="{{ asset('mazer/dist/assets/static/js/pages/toastify.js') }}"></script>
+    <script src="{{ asset('mazer/dist/assets/extensions/apexcharts/apexcharts.min.js') }}"></script>
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
@@ -125,7 +126,12 @@
             <div class="sidebar-wrapper active">
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
-                        <div>BLV</div>
+                        <div class="logo flex-grow-1">
+                            <a href="/" class="d-flex align-items-center text-decoration-none">
+                                <img src="{{ asset('mazer\dist\assets\static\images\faces\logo.png') }}" alt="30SCLOTHING" class="img-fluid"
+                                    style="height: 100px;">
+                            </a>
+                        </div>
                         <div class="theme-toggle d-flex gap-2 align-items-center mt-2">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                 aria-hidden="true" role="img" class="iconify iconify--system-uicons" width="20"
@@ -186,18 +192,24 @@
                             </a>
                         </li>
 
-                        {{-- @if ($canInbound) --}}
-                            <li class="sidebar-item">
-                                <a href="" class='sidebar-link'>
-                                    <i class="fa-solid fa-arrows-down-to-line"></i>
+                        <li class="sidebar-item">
+                            <a href="{{ route('inbounds.index') }}" class='sidebar-link'>
+                                <i class="fa-solid fa-arrows-down-to-line"></i>
                                     <span>Inbound</span>
-                                </a>
-                            </li>
-                        {{-- @endif --}}
+                            </a>
+                        </li>
+
+                        {{-- Inventory: semua role boleh lihat --}}
+                        <li class="sidebar-item">
+                            <a href="{{ route('inventory.index') }}" class="sidebar-link">
+                                <i class="fa-solid fa-box-open"></i>
+                                <span>Inventory</span>
+                            </a>
+                        </li>
 
                         {{-- @if ($canOutbound) --}}
                             <li class="sidebar-item">
-                                <a href="" class='sidebar-link'>
+                                <a href="{{ route('outbounds.index') }}" class='sidebar-link'>
                                     <i class="fa-solid fa-arrows-up-to-line"></i>
                                     <span>Outbound</span>
                                 </a>
@@ -206,38 +218,36 @@
 
                         {{-- @if ($canOrders) --}}
                             <li class="sidebar-item">
-                                <a href="{{ route('material.index') }}" class='sidebar-link'>
+                                <a href="{{ route('products.index') }}" class='sidebar-link'>
                                     <i class="fa-solid fa-coins"></i>
-                                    <span>Material Master</span>
+                                    <span>Products</span>
                                 </a>
                             </li>
                         {{-- @endif --}}
 
                         {{-- @if ($canOrders) --}}
-                            <li class="sidebar-item">
-                                <a href="{{ route('product.index') }}" class='sidebar-link'>
-                                    <i class="fa-solid fa-coins"></i>
-                                    <span>Products & Composition</span>
-                                </a>
-                            </li>
+                        <li class="sidebar-item">
+                            <a href="{{ route('bundlings.index') }}" class='sidebar-link'>
+                                <i class="fa-solid fa-boxes-stacked"></i>
+                                <span>Bundling</span>
+                            </a>
+                        </li>
                         {{-- @endif --}}
 
-                        {{-- Inventory: semua role boleh lihat --}}
-                        <li class="sidebar-item has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="fa-solid fa-box-open"></i>
-                                <span>Inventory</span>
+                        <li class="sidebar-item">
+                            <a href="{{ route('masterdata.index') }}" class='sidebar-link'>
+                                <i class="fa-solid fa-gear"></i>
+                                <span>Master Data</span>
                             </a>
-                            <ul class="submenu">
-                                <li class="submenu-item">
-                                    <a href="" class="submenu-link">View Inventory</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="" class="submenu-link">History
-                                        Inventory</a>
-                                </li>
-                            </ul>
                         </li>
+
+                        <li class="sidebar-item">
+                            <a href="{{ route('transaction-history.index') }}" class='sidebar-link'>
+                                <i class="fa-solid fa-clock"></i>
+                                <span>Transaction History</span>
+                            </a>
+                        </li>
+
 
                         
 
@@ -319,9 +329,9 @@
                                             <h6 class="mb-0 text-gray-600">
                                                 {{ Auth::user()->username }}
                                             </h6>
-                                            {{-- <p class="mb-0 text-sm text-gray-600">
-                                                {{ session('role_name') }}
-                                            </p> --}}
+                                            <p class="mb-0 text-sm text-gray-600">
+                                                {{ Auth::user()->role }}
+                                            </p>
                                         </div>
                                         <div class="user-img d-flex align-items-center">
                                             <div class="avatar avatar-md">

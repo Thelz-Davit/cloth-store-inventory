@@ -3,12 +3,17 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\MasterDataController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\InboundController;
 use App\Http\Controllers\OutboundController;
+use App\Http\Controllers\ColorUnitController;
+use App\Http\Controllers\ProductVariantController;
+use App\Http\Controllers\TransactionHistory;
+use App\Http\Controllers\TransactionHistoryController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\RfidController;
+use App\Http\Controllers\BundleController;
 use App\Http\Controllers\SalesOrderController;
 use Illuminate\Support\Facades\Route;
 
@@ -120,16 +125,66 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    Route::get('/material', [MaterialController::class, 'index'])->name('material.index');
-
-    Route::get('/product', [ProductController::class, 'index'])->name('product.index');
-    Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
-    Route::post('/product/delete', [ProductController::class, 'delete'])->name('product.delete');
-    Route::post('/product', [ProductController::class, 'store'])->name('product.store');
-    Route::put('/product/{id}', [ProductController::class, 'update'])->name('product.update');
-
+    //CRUD'S
+    Route::resource('materials', MaterialController::class);
+    Route::resource('outbounds', OutboundController::class);
+    Route::resource('inbounds', InboundController::class);
+    Route::resource('bundlings', BundleController::class);
+    Route::resource('masterdata', MasterDataController::class);
 
 
+    Route::resource('products', ProductController::class)
+        ->except(['show']);
+
+    Route::post(
+        '/outbounds/draft',
+        [OutboundController::class, 'storeDraft']
+    )->name('outbounds.storeDraft');
+
+    Route::get('/inventories', [ProductController::class, 'indexInventory'])->name('inventory.index');
+    Route::get('/transaction-history', [TransactionHistoryController::class, 'index'])
+        ->name('transaction-history.index');
+
+
+
+    Route::prefix('master-data')->name('master-data.')->group(function () {
+
+        // Index
+        Route::get('/', [MasterDataController::class, 'index'])->name('index');
+
+        /*
+        |--------------------------------------------------------------------------
+        | Materials
+        |--------------------------------------------------------------------------
+        */
+        Route::get('/materials/create', [MasterDataController::class, 'createMaterial'])->name('materials.create');
+        Route::post('/materials', [MasterDataController::class, 'storeMaterial'])->name('materials.store');
+        Route::get('/materials/{material}/edit', [MasterDataController::class, 'editMaterial'])->name('materials.edit');
+        Route::put('/materials/{material}', [MasterDataController::class, 'updateMaterial'])->name('materials.update');
+        Route::delete('/materials/{material}', [MasterDataController::class, 'destroyMaterial'])->name('materials.destroy');
+
+        /*
+        |--------------------------------------------------------------------------
+        | Colors
+        |--------------------------------------------------------------------------
+        */
+        Route::get('/colors/create', [MasterDataController::class, 'createColor'])->name('colors.create');
+        Route::post('/colors', [MasterDataController::class, 'storeColor'])->name('colors.store');
+        Route::get('/colors/{color}/edit', [MasterDataController::class, 'editColor'])->name('colors.edit');
+        Route::put('/colors/{color}', [MasterDataController::class, 'updateColor'])->name('colors.update');
+        Route::delete('/colors/{color}', [MasterDataController::class, 'destroyColor'])->name('colors.destroy');
+
+        /*
+        |--------------------------------------------------------------------------
+        | Sizes
+        |--------------------------------------------------------------------------
+        */
+        Route::get('/sizes/create', [MasterDataController::class, 'createSize'])->name('sizes.create');
+        Route::post('/sizes', [MasterDataController::class, 'storeSize'])->name('sizes.store');
+        Route::get('/sizes/{size}/edit', [MasterDataController::class, 'editSize'])->name('sizes.edit');
+        Route::put('/sizes/{size}', [MasterDataController::class, 'updateSize'])->name('sizes.update');
+        Route::delete('/sizes/{size}', [MasterDataController::class, 'destroySize'])->name('sizes.destroy');
+    });
 
     Route::middleware('role_name:Superadmin')->group(function () {
 
@@ -140,6 +195,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/account', [AccountController::class, 'store'])->name('account.store');
         Route::post('/account/delete', [AccountController::class, 'delete'])->name('account.delete');
         Route::put('/account/{id}', [AccountController::class, 'update'])->name('account.update');
+
 
 
 

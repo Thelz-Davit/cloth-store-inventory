@@ -13,9 +13,6 @@ return new class extends Migration {
         Schema::create('materials', function (Blueprint $table) {
             $table->id();
             $table->string('material_name');
-            $table->string('color');
-            $table->string('size');
-            $table->integer('stock');
             $table->timestamps();
         });
     }
