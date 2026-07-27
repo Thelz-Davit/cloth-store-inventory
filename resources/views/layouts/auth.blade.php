@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="{{ asset('mazer/dist/assets/compiled/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('mazer/dist/assets/compiled/css/app-dark.css') }}">
     <link rel="stylesheet" href="{{ asset('mazer/dist/assets/compiled/css/auth.css') }}">
-    <link rel="icon" type="image/x-icon" sizes="16x16"
-        href="https://d2kchovjbwl1tk.cloudfront.net/favicon/favicon_web_1632967746769_resized16-jpg.webp">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('mazer/dist/assets/static/images/logo/favicon.png') }}">
+    
+    <link rel="shortcut icon" href="{{ asset('mazer/dist/assets/static/images/favicon.ico') }}">
 </head>
 
 <body>

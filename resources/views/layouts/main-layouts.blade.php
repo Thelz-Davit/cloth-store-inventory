@@ -7,9 +7,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', '30SClothing') }}</title>
 
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('mazer/dist/assets/static/images/favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('mazer/dist/assets/static/images/logo/favicon.png') }}">
     
-    <link rel="shortcut icon" href="{{ asset('mazer/dist/assets/static/images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('mazer/dist/assets/static/images/logo/favicon.ico') }}">
 
     <link rel="stylesheet" href="{{ asset('mazer/dist/assets/compiled/css/app.css') }}" />
     <link rel="stylesheet" href="{{ asset('mazer/dist/assets/compiled/css/app-dark.css') }}" />
