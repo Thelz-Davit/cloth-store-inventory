@@ -4,7 +4,7 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Products</h3>
+                    <h3>Transaction History</h3>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -40,9 +40,9 @@
 
                                 <td>
                                     @if($item['type'] == 'Inbound')
-                                        <span class="badge bg-success">Inbound</span>
+                                        <span class="badge bg-success-subtle text-success">Inbound</span>
                                     @else
-                                        <span class="badge bg-primary">Outbound</span>
+                                        <span class="badge bg-primary-subtle text-primary">Outbound</span>
                                     @endif
                                 </td>
 

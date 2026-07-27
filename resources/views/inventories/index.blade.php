@@ -41,14 +41,14 @@
                                 <td>{{ $product->size?->size_name ?? '-' }}</td>
                                 <td>
                                     @if($product->status)
-                                        <span class="badge bg-success">Active</span>
+                                        <span class="badge bg-success-subtle text-success">Active</span>
                                     @else
-                                        <span class="badge bg-danger">Inactive</span>
+                                        <span class="badge bg-danger-subtle text-danger">Inactive</span>
                                     @endif
                                     @if($product->stock < 20)
-                                        <span class="badge bg-warning text-dark ms-1">Low Stock</span>
+                                        <span class="badge bg-warning-subtle text-warning">Low Stock</span>
                                     @else
-                                        <span class="badge bg-success ms-1">In Stock</span>
+                                        <span class="badge bg-primary-subtle text-primary">In Stock</span>
                                     @endif
                                 </td>
 

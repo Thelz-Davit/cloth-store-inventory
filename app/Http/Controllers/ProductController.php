@@ -7,6 +7,7 @@ use App\Models\Material;
 use App\Models\Product;
 use App\Models\Size;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -40,7 +41,7 @@ class ProductController extends Controller
         $colors = Color::all();
         $sizes = Size::all();
         $materials = Material::all();
-        return view('products.create', compact('sizes', 'colors','materials'));
+        return view('products.create', compact('sizes', 'colors', 'materials'));
     }
 
     /**
@@ -50,9 +51,9 @@ class ProductController extends Controller
     {
         $validated = $request->validate([
             'product_name' => 'required|max:255',
-            'material_id' => 'nullable|exists:materials,id',
-            'color_id'    => 'nullable|exists:colors,id',
-            'size_id'     => 'nullable|exists:sizes,id',
+            'material_id'  => 'nullable|exists:materials,id',
+            'color_id'     => 'nullable|exists:colors,id',
+            'size_id'      => 'nullable|exists:sizes,id',
         ]);
 
         $validated['status'] = true;
@@ -78,7 +79,7 @@ class ProductController extends Controller
         $colors = Color::all();
         $sizes = Size::all();
         $materials = Material::all();
-        return view('products.create', compact('product','colors','sizes','materials'));
+        return view('products.create', compact('product', 'colors', 'sizes', 'materials'));
     }
 
     /**
@@ -87,16 +88,16 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $validated = $request->validate([
-        'product_name' => 'required|max:255',
-        'material_id'  => 'nullable|exists:materials,id',
-        'color_id'     => 'nullable|exists:colors,id',
-        'size_id'      => 'nullable|exists:sizes,id',
-        'status' => 'required|boolean',
-    ]);
+            'product_name' => 'required|max:255',
+            'material_id'  => 'nullable|exists:materials,id',
+            'color_id'     => 'nullable|exists:colors,id',
+            'size_id'      => 'nullable|exists:sizes,id',
+            'status'       => 'required|boolean',
+        ]);
 
-    $product->update($validated);
+        $product->update($validated);
 
-    return redirect()->route('products.index')->with('toast_success', 'Product updated Succesfully');
+        return redirect()->route('products.index')->with('toast_success', 'Product updated Successfully');
     }
 
     /**
@@ -104,9 +105,21 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        // Cek apakah produk ini sudah pernah dipakai di inbounds atau bundle_items
+        $isInboundUsed = DB::table('inbounds')->where('product_id', $product->id)->exists();
+        $isBundleUsed  = DB::table('bundle_items')->where('product_id', $product->id)->exists();
+
+        if ($isInboundUsed || $isBundleUsed) {
+            return redirect()
+                ->route('products.index')
+                ->with('toast_error', 'Product cannot be deleted because it has transaction or bundling history.');
+        }
+
+        // Jika belum pernah dipakai, hapus produknya
         $product->delete();
 
-        return redirect()->route('products.index');
+        return redirect()
+            ->route('products.index')
+            ->with('toast_success', 'Product deleted successfully.');
     }
-
 }

@@ -10,7 +10,7 @@
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-                                    <li class="breadcrumb-item"><a href="/">Inbound</a></li>
+                                    <li class="breadcrumb-item"><a href="{{ route('inbounds.index') }}">Inbound</a></li>
                                 </ol>
                             </nav>
                         </div>
@@ -19,7 +19,7 @@
             </div>
             <div class="card">
                 @php
-    $isEdit = isset($inbound) && $inbound;
+                    $isEdit = isset($inbound) && $inbound;
                 @endphp
 
                 <form method="POST" action="{{ $isEdit ? route('inbounds.update', $inbound->id) : route('inbounds.store') }}"
@@ -78,7 +78,7 @@
                             </div>
 
                             <div class="col-sm-12 mt-3">
-                                <a href="{{ route('masterdata.index') }}" class="btn btn-outline-secondary">Back</a>
+                                <a href="{{ route('inbounds.index') }}" class="btn btn-outline-secondary">Back</a>
                                 <button class="btn btn-primary">{{ $isEdit ? 'Update' : 'Submit' }}</button>
                             </div>
                         </div>

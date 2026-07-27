@@ -10,7 +10,7 @@
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('masterdata.index') }}">Master Data</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('master-data.index') }}">Master Data</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Materials</li>
                         </ol>
                     </nav>
@@ -24,7 +24,7 @@
         @endphp
 
         <form method="POST"
-            action="{{ $isEdit ? route('master-data.materials.update', $material->id) : route('master-data.materials.store') }}"
+            action="{{ $isEdit ? route('materials.update', $material->id) : route('materials.store') }}"
             data-use-loader="true">
             @csrf
             @if ($isEdit)
@@ -44,7 +44,7 @@
                         </div>
                     </div>
                     <div class="col-sm-12 mt-3">
-                        <a href="{{ route('masterdata.index') }}" class="btn btn-outline-secondary">Back</a>
+                        <a href="{{ route('master-data.index') }}" class="btn btn-outline-secondary">Back</a>
                         <button class="btn btn-primary">{{ $isEdit ? 'Update' : 'Submit' }}</button>
                     </div>
                 </div>

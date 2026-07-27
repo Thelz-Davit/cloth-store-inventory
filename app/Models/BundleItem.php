@@ -2,24 +2,23 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class BundleItem extends Model
 {
-    use HasFactory;
     protected $fillable = [
         'bundle_id',
-        'product_id',
+        'material_id',
         'quantity',
     ];
+
     public function bundle()
     {
         return $this->belongsTo(Bundle::class);
     }
 
-    public function product()
+    public function material()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Material::class);
     }
 }

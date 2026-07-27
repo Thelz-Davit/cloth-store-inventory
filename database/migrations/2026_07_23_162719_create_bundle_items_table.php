@@ -18,7 +18,7 @@ return new class extends Migration {
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
-            $table->foreignId('product_id')
+            $table->foreignId('material_id')
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();

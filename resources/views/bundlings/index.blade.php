@@ -33,10 +33,9 @@
                     <thead>
                         <tr>
                             <th>Bundle Name</th>
-                            <th>Products</th>
+                            <th>Materials</th>
                             <th>Total Qty</th>
                             @if (Auth::user()->role === 'staff')
-
                             <th>Actions</th>
                             @endif
                         </tr>
@@ -50,7 +49,7 @@
                                 <td>
                                     @foreach ($bundle->items as $item)
                                         <div>
-                                            {{ $item->product->product_name }}
+                                            {{ $item->material?->material_name ?? '-' }}
                                             (x{{ $item->quantity }})
                                         </div>
                                     @endforeach
@@ -60,15 +59,14 @@
                                     {{ $bundle->items->sum('quantity') }}
                                 </td>
                                 @if (Auth::user()->role === 'staff')
-
                                 <td>
-                                    <a href="{{ route('bundlings.edit', $bundle->id) }}" class="btn btn-warning btn-sm">
-                                        <i class="bi bi-pencil"></i>
+                                    <a href="{{ route('bundlings.edit', $bundle->id) }}" class="btn btn-warning-subtle btn-sm">
+                                        <i class="bi bi-pencil text-warning"></i>
                                     </a>
 
-                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                    <button type="button" class="btn btn-danger-subtle btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal"
                                         onclick="setDeleteForm('{{ route('bundlings.destroy', $bundle->id) }}', '{{ $bundle->bundle_name }}')">
-                                        <i class="bi bi-trash"></i>
+                                        <i class="bi bi-trash text-danger"></i>
                                     </button>
                                 </td>
                                 @endif
@@ -86,13 +84,13 @@
                                 @method('DELETE')
 
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteModalLabel">Delete Product</h5>
+                                    <h5 class="modal-title" id="deleteModalLabel">Delete Bundling</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                 </div>
 
                                 <div class="modal-body">
-                                    Are you sure you want to delete
-                                    <strong id="productName"></strong>?
+                                    Are you sure you want to delete bundling 
+                                    <strong id="materialName"></strong>?
                                 </div>
 
                                 <div class="modal-footer">
@@ -118,7 +116,7 @@
     <script>
         function setDeleteForm(url, name) {
             document.getElementById('deleteForm').action = url;
-            document.getElementById('productName').textContent = name;
+            document.getElementById('materialName').textContent = name;
         }
     </script>
 @endpush

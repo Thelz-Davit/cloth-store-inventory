@@ -167,12 +167,13 @@
                                     <td>{{ \Carbon\Carbon::parse($activity->date)->format('d M Y') }}</td>
                                     <td>
                                         @if($activity->type === 'Inbound')
-                                            <span class="badge bg-success">Inbound</span>
+                                            <span class="badge bg-success-subtle text-success">Inbound</span>
                                         @else
-                                            <span class="badge bg-danger">Outbound</span>
+                                            <span class="badge bg-primary-subtle text-primary">Outbound</span>
                                         @endif
                                     </td>
-                                    <td>{{ $activity->product->product_name ?? $activity->bundle->bundle_name }}</td>
+                                    {{-- PERBAIKAN DI SINI: Tambah tanda tanya (?) --}}
+                                    <td>{{ $activity->product->product_name ?? $activity->bundle?->bundle_name ?? '-' }}</td>
                                     <td>{{ $activity->quantity }}</td>
                                 </tr>
                             @endforeach
@@ -188,6 +189,15 @@
 
 @push('scripts')
     <script>
+
+        const inboundColor = getComputedStyle(document.documentElement)
+                .getPropertyValue('--bs-success-bg-subtle')
+                .trim();
+
+            const outboundColor = getComputedStyle(document.documentElement)
+                .getPropertyValue('--bs-primary-bg-subtle')
+                .trim();
+
         var barOptions = {
                 series: [
                     {
@@ -209,12 +219,22 @@
                     curve: 'smooth'
                 },
 
+                fill: {
+                type: 'solid',
+                opacity: 0.5
+                },
+
+                colors: [
+                '#d1e7dd', // Bootstrap success-subtle
+                '#cfe2ff'  // Bootstrap primary-subtle
+                ],
+
                 xaxis: {
                     categories: @json($days)
                 }
             }
 
-                
+
 
             new ApexCharts(
                 document.querySelector("#inventoryChart"),

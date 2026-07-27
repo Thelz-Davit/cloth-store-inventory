@@ -199,14 +199,6 @@
                             </a>
                         </li>
 
-                        {{-- Inventory: semua role boleh lihat --}}
-                        <li class="sidebar-item">
-                            <a href="{{ route('inventory.index') }}" class="sidebar-link">
-                                <i class="fa-solid fa-box-open"></i>
-                                <span>Inventory</span>
-                            </a>
-                        </li>
-
                         {{-- @if ($canOutbound) --}}
                             <li class="sidebar-item">
                                 <a href="{{ route('outbounds.index') }}" class='sidebar-link'>
@@ -215,6 +207,15 @@
                                 </a>
                             </li>
                         {{-- @endif --}}
+                        
+                        {{-- Inventory: semua role boleh lihat --}}
+                        <li class="sidebar-item">
+                            <a href="{{ route('inventory.index') }}" class="sidebar-link">
+                                <i class="fa-solid fa-box-open"></i>
+                                <span>Inventory</span>
+                            </a>
+                        </li>
+
 
                         {{-- @if ($canOrders) --}}
                             <li class="sidebar-item">
@@ -235,7 +236,7 @@
                         {{-- @endif --}}
 
                         <li class="sidebar-item">
-                            <a href="{{ route('masterdata.index') }}" class='sidebar-link'>
+                            <a href="{{ route('master-data.index') }}" class='sidebar-link'>
                                 <i class="fa-solid fa-gear"></i>
                                 <span>Master Data</span>
                             </a>

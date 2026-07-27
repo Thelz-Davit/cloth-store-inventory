@@ -155,6 +155,10 @@
                         data: @json($outboundSeries)
                     }
                 ],
+                colors: [
+                '#d1e7dd', // Bootstrap success-subtle
+                '#cfe2ff'  // Bootstrap primary-subtle
+                ],
 
                 chart: {
                     type: 'bar',
@@ -178,6 +182,10 @@
                         labels: [
                             'In Stock',
                             'Low Stock',
+                        ],
+                        colors: [
+                        '#d1e7dd', // Bootstrap success-subtle
+                        '#fff3cd'  // Bootstrap primary-subtle
                         ],
                         legend: {
                             show: true,

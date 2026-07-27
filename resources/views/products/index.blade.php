@@ -52,20 +52,20 @@
                                     <td>{{ $product->size?->size_name ?? '-' }}</td>
                                     <td>
                                         @if($product->status)
-                                            <span class="badge bg-success">Active</span>
+                                            <span class="badge bg-success-subtle text-success">Active</span>
                                         @else
-                                            <span class="badge bg-danger">Inactive</span>
+                                            <span class="badge bg-danger-subtle text-danger">Inactive</span>
                                         @endif
                                     </td>
                                     @if (Auth::user()->role === 'staff')
 
                                     <td>
-                                        <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-warning">
-                                            <i class="bi bi-pencil"></i>
+                                        <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-warning-subtle">
+                                            <i class="bi bi-pencil text-warning"></i>
                                         </a>
-                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                        <button type="button" class="btn btn-danger-subtle btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal"
                                             onclick="setDeleteForm('{{ route('products.destroy', $product->id) }}', '{{ $product->product_name }}')">
-                                            <i class="bi bi-trash"></i>
+                                            <i class="bi bi-trash text-danger"></i>
                                         </button>
                                     </td>
                                     @endif
